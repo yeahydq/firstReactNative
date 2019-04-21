@@ -91,7 +91,8 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+/*def enableProguardInReleaseBuilds = false*/
+def enableProguardInReleaseBuilds = true
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -108,6 +109,18 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs{
+        release {
+//            storeFile file("/Users/dickye/codes/firstReactNative/android/app/src/main/assets/dy-release-key.keystore")
+//            storePassword "Dick1234"
+//            keyAlias "dy-key-alias"
+//            keyPassword "Dick1234"
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
+    }
     splits {
         abi {
             reset()
@@ -120,6 +133,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release //添加这句话引用签名配置
         }
     }
     // applicationVariants are e.g. debug, release

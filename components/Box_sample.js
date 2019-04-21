@@ -83,7 +83,7 @@ class ElementBox extends Component{
 
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class Box_sample extends Component<Props> {
   render(){
   return (
       <MargginBox>
